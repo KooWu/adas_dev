@@ -1,0 +1,7 @@
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/install/strip.dir
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/install/local.dir
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/install.dir
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/list_install_components.dir
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/rebuild_cache.dir
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/edit_cache.dir
+/home/yxw/share/cmake_prj/test/example/build/CMakeFiles/example.dir

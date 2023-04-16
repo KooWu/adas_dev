@@ -1,0 +1,1 @@
+/home/yxw/share/cmake_prj/install/ubuntu/bin/example

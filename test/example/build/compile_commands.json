@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/yxw/share/cmake_prj/test/example/build",
+  "command": "/usr/bin/c++      -o CMakeFiles/example.dir/test.cpp.o -c /home/yxw/share/cmake_prj/test/example/test.cpp",
+  "file": "/home/yxw/share/cmake_prj/test/example/test.cpp"
+}
+]
