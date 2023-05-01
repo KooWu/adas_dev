@@ -41,7 +41,7 @@ else
     BUILD_CXX_DIR=${PRJ_DIR}/tools/gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-g++
 fi
 
-if [ ${MODULE_NAME} = libevent-master -o ${MODULE_NAME} = asio -o ${MODULE_NAME} = protobuf-3.6.1 -o ${MODULE_NAME} = popt-1.18 -o ${MODULE_NAME} = logrotate-3.18.0 ];then
+if [ ${MODULE_NAME} = libevent-master -o ${MODULE_NAME} = asio -o ${MODULE_NAME} = protobuf-3.16.3 -o ${MODULE_NAME} = popt-1.18 -o ${MODULE_NAME} = logrotate-3.18.0 ];then
     cd ${BUILD_MODULE_DIR}
     #第一次需要执行这个
     ./autogen.sh
@@ -56,17 +56,22 @@ if [ ${MODULE_NAME} = libevent-master -o ${MODULE_NAME} = asio -o ${MODULE_NAME}
 elif [ ${MODULE_NAME} = boost_1_74_0 ];then
     cd ${BUILD_MODULE_DIR}
     #第一次需要执行这个
-    #./bootstrap.sh --prefix=${BUILD_INSTALL_DIR} --with-toolset=${BUILD_CXX_DIR}
-    cp project-config-${SOC_TYPE_NAME}.jam project-config.jam
+    ./bootstrap.sh --prefix=${BUILD_INSTALL_DIR}
+    #cp project-config-${SOC_TYPE_NAME}.jam project-config.jam
     ./b2 clean
     ./b2 install --prefix=${BUILD_INSTALL_DIR}
 else
     #clean
+    rm -rf ${BUILD_MODULE_DIR}/build
     #cmake --build ${PRJ_DIR}/build --target clean
     #format
     #clang-format -i -style=file $(find ${BUILD_MODULE_DIR} -regex '.*\.\(cpp\|h\|c\)$')
     #cmake config
-    cmake -S ${BUILD_MODULE_DIR} -DCMAKE_TOOLCHAIN_FILE=${BUILD_TOOLCHAIN_FILE} -DCMAKE_INSTALL_PREFIX=${BUILD_INSTALL_DIR} -DBUILD_SHARED_LIBS=ON -DBUILD_PRJ_DIR=${PRJ_DIR} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B ${BUILD_MODULE_DIR}/build
+    if [ ${MODULE_NAME} = mosquitto-2.0.15 ];then
+        cmake -S ${BUILD_MODULE_DIR} -DCMAKE_TOOLCHAIN_FILE=${BUILD_TOOLCHAIN_FILE} -DCMAKE_INSTALL_PREFIX=${BUILD_INSTALL_DIR} -DWITH_TLS=OFF -DWITH_CJSON=OFF -DBUILD_PRJ_DIR=${PRJ_DIR} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B ${BUILD_MODULE_DIR}/build
+    else
+        cmake -S ${BUILD_MODULE_DIR} -DCMAKE_TOOLCHAIN_FILE=${BUILD_TOOLCHAIN_FILE} -DCMAKE_INSTALL_PREFIX=${BUILD_INSTALL_DIR} -DBUILD_SHARED_LIBS=ON -DBUILD_PRJ_DIR=${PRJ_DIR} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B ${BUILD_MODULE_DIR}/build
+    fi
     #tidy
     #find ${BUILD_MODULE_DIR} -name '*.cpp' -or -name '*.h' | xargs clang-tidy -p ${BUILD_MODULE_DIR}/build
     #build & install
